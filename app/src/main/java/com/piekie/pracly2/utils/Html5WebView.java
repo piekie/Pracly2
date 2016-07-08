@@ -17,25 +17,38 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
 import com.piekie.pracly2.R;
+import com.piekie.pracly2.utils.interfaces.InterfaceCall;
 
 public class Html5WebView extends WebView {
 
+    static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
+            new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     private Context                                     mContext;
     private ChromeClient                                mWebChromeClient;
     private WebChromeClient.CustomViewCallback          mCustomViewCallback;
-
     private View                                        mCustomView;
-
     private FrameLayout                                 mLayout;
     private FrameLayout                                 mBrowserFrameLayout;
     private FrameLayout                                 mContentView;
     private FrameLayout                                 mCustomViewContainer;
 
 
-    static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
-            new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    public Html5WebView(Context context) {
+        super(context);
+        init(context);
+    }
 
-    private void init(Context context) {
+    public Html5WebView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    public Html5WebView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context);
+    }
+
+    private void init(final Context context) {
         mContext = context;
         Activity activity = (Activity) mContext;
 
@@ -57,9 +70,10 @@ public class Html5WebView extends WebView {
         //TODO: watch on vulnerabilities
         settings.setJavaScriptEnabled(true);
 
+        addJavascriptInterface(new InterfaceCall(context), "btnCall");
+
         mWebChromeClient = new ChromeClient();
         setWebChromeClient(mWebChromeClient);
-
         setWebViewClient(new WebViewClient());
 
         setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
@@ -69,26 +83,6 @@ public class Html5WebView extends WebView {
         settings.setDomStorageEnabled(true);
         mContentView.addView(this);
 
-    }
-
-    public Html5WebView(Context context) {
-        super(context);
-        init(context);
-    }
-
-    public Html5WebView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
-    }
-
-    public Html5WebView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context);
-    }
-
-    public Html5WebView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
     }
 
     public FrameLayout getLayout() {
