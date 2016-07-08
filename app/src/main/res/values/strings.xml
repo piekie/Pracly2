@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Pracly 2</string>
+    <string name="btn_unlock">Unlock screen</string>
+    <string name="loading_video">Video is loading</string>
+</resources>
