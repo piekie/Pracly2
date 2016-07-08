@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 
 import com.piekie.pracly2.R;
 import com.piekie.pracly2.utils.interfaces.InterfaceCall;
+import com.piekie.pracly2.utils.interfaces.InterfaceMail;
 
 public class Html5WebView extends WebView {
 
@@ -71,6 +72,7 @@ public class Html5WebView extends WebView {
         settings.setJavaScriptEnabled(true);
 
         addJavascriptInterface(new InterfaceCall(context), "btnCall");
+        addJavascriptInterface(new InterfaceMail(context), "btnMail");
 
         mWebChromeClient = new ChromeClient();
         setWebChromeClient(mWebChromeClient);
